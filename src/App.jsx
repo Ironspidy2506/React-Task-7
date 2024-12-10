@@ -9,7 +9,6 @@ function App() {
   const [convertedAmount, setConvertedAmount] = useState(0);
 
   const currencyInfo = useCurrencyInfo(from);
-
   const options = Object.keys(currencyInfo);
 
   const swap = () => {
@@ -25,51 +24,74 @@ function App() {
 
   return (
     <div
-      className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
+      className="w-full h-screen flex justify-center items-center bg-gray-900 bg-cover bg-center"
       style={{
-        backgroundImage: `url('https://images.pexels.com/photos/3532540/pexels-photo-3532540.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
+        backgroundImage: `url('https://images.pexels.com/photos/839351/pexels-photo-839351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
       }}
     >
-      <div className="w-full">
-        <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+      <div className="flex flex-col md:flex-row items-center gap-10 px-4">
+        {/* Left Section */}
+        <div className="text-white text-center md:text-left">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
+            Currency Converter
+          </h1>
+          <p className="text-lg md:text-xl font-light mb-6">
+            Convert currencies quickly and easily with up-to-date exchange rates.
+            Trusted by users worldwide.
+          </p>
+        </div>
+
+        {/* Conversion Card */}
+        <div className="w-full max-w-md p-6 border border-gray-700 rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 shadow-lg backdrop-blur-lg">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               convert();
             }}
           >
-            <div className="w-full mb-1">
+            <h2 className="text-center text-white text-3xl font-bold mb-6">
+              Convert Currencies
+            </h2>
+            <div className="mb-5">
               <InputBox
-                label="From"
+                label={
+                  <span className="text-sm text-gray-400 font-medium">
+                    From Currency
+                  </span>
+                }
                 amount={amount}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setAmount(amount)}
+                onCurrencyChange={(currency) => setFrom(currency)}
                 selectCurrency={from}
                 onAmountChange={(amount) => setAmount(amount)}
               />
             </div>
-            <div className="relative w-full h-0.5">
+            <div className="relative w-full h-0.5 mb-5">
               <button
                 type="button"
-                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border border-gray-600 rounded-md bg-blue-600 text-white px-3 py-1 shadow-md font-medium hover:bg-blue-700 transition"
                 onClick={swap}
               >
-                swap
+                Swap
               </button>
             </div>
-            <div className="w-full mt-1 mb-4">
+            <div className="mb-5">
               <InputBox
-                label="To"
+                label={
+                  <span className="text-sm text-gray-400 font-medium">
+                    To Currency
+                  </span>
+                }
                 amount={convertedAmount}
                 currencyOptions={options}
                 onCurrencyChange={(currency) => setTo(currency)}
-                selectCurrency={from}
+                selectCurrency={to}
                 amountDisable
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg"
+              className="w-full bg-blue-600 text-white text-lg font-semibold px-5 py-3 rounded-lg hover:bg-blue-700 transition shadow-md"
             >
               Convert {from.toUpperCase()} to {to.toUpperCase()}
             </button>
